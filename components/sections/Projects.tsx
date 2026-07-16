@@ -1,22 +1,25 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Sparkles, CheckCircle2, Edit3, Plus } from 'lucide-react'
+import { Sparkles, CheckCircle2, Edit3, Plus, ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 import { type Product } from '@/lib/data'
 import { useAdmin } from '@/lib/adminContext'
+import RegisterInterestModal from '@/components/RegisterInterestModal'
 
 function ProductCard({
   product,
   index,
   isAdminLoggedIn,
   onEdit,
+  onRegisterInterest,
 }: {
   product: Product
   index: number
   isAdminLoggedIn: boolean
   onEdit: () => void
+  onRegisterInterest: () => void
 }) {
   const isEven = index % 2 === 0
 
@@ -112,6 +115,17 @@ function ProductCard({
             </motion.div>
           ))}
         </div>
+
+        {/* Action Button */}
+        <div className="mt-8">
+          <button
+            onClick={onRegisterInterest}
+            className="group/btn inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white hover:text-black text-white text-sm font-semibold transition-all duration-300"
+          >
+            <span>Register Interest</span>
+            <ArrowRight size={16} className="text-zinc-400 group-hover/btn:text-black transition-colors duration-300" />
+          </button>
+        </div>
       </div>
     </motion.div>
   )
@@ -121,6 +135,7 @@ export default function Projects() {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '-100px' })
   const { projectsList, isAdminLoggedIn, openEditorModal } = useAdmin()
+  const [interestedProject, setInterestedProject] = useState<string | null>(null)
 
   return (
     <section id="projects" className="relative py-32 lg:py-40">
@@ -169,9 +184,16 @@ export default function Projects() {
               index={i}
               isAdminLoggedIn={isAdminLoggedIn}
               onEdit={() => openEditorModal('projects', i)}
+              onRegisterInterest={() => setInterestedProject(product.title)}
             />
           ))}
         </div>
+
+        <RegisterInterestModal
+          isOpen={!!interestedProject}
+          onClose={() => setInterestedProject(null)}
+          projectTitle={interestedProject || ''}
+        />
       </div>
     </section>
   )
