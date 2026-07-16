@@ -316,8 +316,32 @@ export default function AdminEditorModal() {
                       </div>
 
                       <div>
-                        <label className="block text-xs uppercase tracking-wider font-semibold text-zinc-400 mb-1">
-                          Image URL / Path
+                        <label className="flex items-center justify-between mb-1">
+                          <span className="block text-xs uppercase tracking-wider font-semibold text-zinc-400">
+                            Image URL / Path
+                          </span>
+                          <label className="cursor-pointer text-[10px] text-black bg-white hover:bg-zinc-200 px-2 py-0.5 rounded transition-colors font-bold">
+                            + Upload Image
+                            <input
+                              type="file"
+                              accept="image/*"
+                              className="hidden"
+                              onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                  if (file.size > 3 * 1024 * 1024) {
+                                    showToast('⚠️ Image must be less than 3MB');
+                                    return;
+                                  }
+                                  const reader = new FileReader();
+                                  reader.onloadend = () => {
+                                    setFormData({ ...formData, image: reader.result as string });
+                                  };
+                                  reader.readAsDataURL(file);
+                                }
+                              }}
+                            />
+                          </label>
                         </label>
                         <input
                           type="text"
