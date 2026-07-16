@@ -326,18 +326,35 @@ export default function AdminEditorModal() {
                               type="file"
                               accept="image/*"
                               className="hidden"
-                              onChange={(e) => {
+                              onChange={async (e) => {
                                 const file = e.target.files?.[0];
                                 if (file) {
                                   if (file.size > 3 * 1024 * 1024) {
                                     showToast('⚠️ Image must be less than 3MB');
                                     return;
                                   }
-                                  const reader = new FileReader();
-                                  reader.onloadend = () => {
-                                    setFormData({ ...formData, image: reader.result as string });
-                                  };
-                                  reader.readAsDataURL(file);
+                                  
+                                  showToast('⏳ Uploading image...');
+                                  try {
+                                    const formData = new FormData();
+                                    formData.append('image', file);
+
+                                    const res = await fetch('/api/admin/upload', {
+                                      method: 'POST',
+                                      body: formData,
+                                    });
+
+                                    const data = await res.json();
+                                    
+                                    if (!res.ok) {
+                                      throw new Error(data.error || 'Upload failed');
+                                    }
+
+                                    setFormData({ ...formData, image: data.url });
+                                    showToast('✅ Image uploaded successfully!');
+                                  } catch (err: any) {
+                                    showToast(`❌ Error: ${err.message}`);
+                                  }
                                 }
                               }}
                             />
