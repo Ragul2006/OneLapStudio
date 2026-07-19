@@ -3,7 +3,7 @@ import './globals.css'
 import AdminProviders from '@/components/AdminProviders'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://onelapstudio.eu.org'),
+  metadataBase: new URL('https://onelapstudio.app'),
   applicationName: 'OneLap Studio',
   title: 'OneLap Studio — Building Apps That Feel Alive',
   description:
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     title: 'OneLap Studio — Building Apps That Feel Alive',
     description:
       'An indie software development studio crafting premium digital products with modern technology.',
-    url: 'https://onelapstudio.eu.org',
+    url: 'https://onelapstudio.app',
     type: 'website',
     locale: 'en_US',
     siteName: 'OneLap Studio',
@@ -47,14 +47,6 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  icons: {
-    icon: [
-      { url: '/favicon.ico' },
-      { url: '/logo.jpeg' },
-    ],
-    shortcut: '/logo.jpeg',
-    apple: '/logo.jpeg',
-  },
   verification: {
     other: {
       'msvalidate.01': '5F8B3FFF22017DD3D48A0F93CA315B17',
@@ -72,8 +64,8 @@ export default function RootLayout({
     '@graph': [
       {
         '@type': 'WebSite',
-        '@id': 'https://onelapstudio.eu.org/#website',
-        url: 'https://onelapstudio.eu.org/',
+        '@id': 'https://onelapstudio.app/#website',
+        url: 'https://onelapstudio.app/',
         name: 'OneLap Studio',
         alternateName: ['OneLapStudio', 'OneLap'],
         description:
@@ -81,12 +73,12 @@ export default function RootLayout({
       },
       {
         '@type': 'Organization',
-        '@id': 'https://onelapstudio.eu.org/#organization',
+        '@id': 'https://onelapstudio.app/#organization',
         name: 'OneLap Studio',
-        url: 'https://onelapstudio.eu.org/',
+        url: 'https://onelapstudio.app/',
         logo: {
           '@type': 'ImageObject',
-          url: 'https://onelapstudio.eu.org/logo.jpeg',
+          url: 'https://onelapstudio.app/logo.jpeg',
         },
       },
     ],
@@ -96,10 +88,6 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <head>
         <meta name="msvalidate.01" content="5F8B3FFF22017DD3D48A0F93CA315B17" />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/logo.jpeg" type="image/jpeg" />
-        <link rel="shortcut icon" href="/logo.jpeg" />
-        <link rel="apple-touch-icon" href="/logo.jpeg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <script
