@@ -31,6 +31,7 @@ export const services: Service[] = [
 
 /* ─── Products ─── */
 export interface Product {
+  id?: string
   title: string
   tag: string
   description: string
